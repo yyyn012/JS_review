@@ -1,0 +1,84 @@
+<!-- 구구단 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>구구단</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class GuGuDan extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            //유동적으로 바뀌어야 하는 것들은 state로 만들기 적합하다.
+            first: Math.ceil(Math.random() * 9),
+            second: Math.ceil(Math.random() * 9),
+            value: "",
+            result: "",
+          };
+        }
+
+        onSubmit = (e) => {
+          e.preventDefault();
+          if (
+            parseInt(this.state.value) ===
+            this.state.first * this.state.second
+          ) {
+            this.setState({
+              result: "정답입니다!",
+              first: Math.ceil(Math.random() * 9),
+              second: Math.ceil(Math.random() * 9),
+              value: "",
+            });
+          } else {
+            this.setState({
+              result: "틀렸습니다!",
+              value: "",
+            });
+          }
+        };
+
+        onChange = (e) => {
+          this.setState({ value: e.target.value });
+        };
+
+        render() {
+          return (
+            <div>
+              <div>
+                {this.state.first} 곱하기 {this.state.second}는?
+              </div>
+              <form onSubmit={this.onSubmit}>
+                <input
+                  type="number"
+                  value={this.state.value}
+                  onChange={this.onChange}
+                />
+                <button>값을 입력해주세요.</button>
+              </form>
+              <div>{this.state.result}</div>
+            </div>
+          );
+        }
+      }
+
+      //   <form>에 onSubmit()이 없거나 <input>에 value 또는 onChange()가 없다면 잘 동작하지 않을 것이다.
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(<GuGuDan />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>
