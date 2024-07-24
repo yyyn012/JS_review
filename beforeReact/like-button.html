@@ -28,10 +28,21 @@
           }
 
           return (
-            <button onClick={() => this.setState({ liked: true })}>Like</button>
+            <div>
+              <button onClick={() => this.setState({ liked: true })}>
+                {this.state.liked ? "Liked" : "Like!"}
+
+                {[1, 2, 3].map((i) => {
+                  return <div>{i}</div>;
+                })}
+              </button>
+
+              <input type="text" />
+            </div>
           );
         }
       }
+      // JSX에서는 if문이나 for문을 쓰지 못하기 때문에 위와 같이 삼항연산자나 array.map()을 이용한다.
     </script>
     <script type="text/babel">
       ReactDOM.render(<LikeButton />, document.querySelector("#root")); // React 17 버전 코드
