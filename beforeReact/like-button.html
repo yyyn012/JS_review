@@ -16,39 +16,29 @@
     <script type="text/babel">
       "use strict";
 
-      class LikeButton extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = { liked: false };
-        }
+      function LikeButton() {
+        // 함수형 컴포넌트가 아닌 함수 컴포넌트.
 
-        render() {
-          if (this.state.liked) {
-            return "You liked this.";
-          }
+        const [liked, setLiked] = React.useState(false);
+        // 자바스크립트 문법 중 구조분해 문법에 해당한다. 아래와 같은 세 줄이 한 줄로 줄었다.
 
-          return (
-            <div>
-              <button
-                onClick={() => {
-                  //this.state.liked = true (틀린 예시)
-                  this.setState({ liked: true });
-                }}
-              >
-                Like
-              </button>
-            </div>
-          );
+        // const result = React.useState(false)
+        // const liked = result[0];
+        // const setLiked = result[1];
+
+        if (liked) {
+          return "You liked this.";
         }
+        return (
+          <button
+            onClick={() => {
+              setLiked(true);
+            }}
+          >
+            Like
+          </button>
+        );
       }
-
-      // 리액트에서는 객체(state)를 직접적으로 바꾸지 못한다.(배열, 함수도 객체이므로 아래와 같은 불변성의 특징을 가진다.)
-
-      // 리액트에서 활용 못하는 함수(배열을 직접적으로 수정하기 때문) : pop, push, shift, splice
-
-      // 리액트에서 활용가능한 함수(새로운 배열을 만들어 냄) : concat, slice
-
-      // 따라서 객체 대신 객체를 복사해서 쓰거나 setState함수를 이용해야 한다.
     </script>
     <script type="text/babel">
       ReactDOM.render(<LikeButton />, document.querySelector("#root"));
