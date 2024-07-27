@@ -37,8 +37,9 @@
             parseInt(this.state.value) ===
             this.state.first * this.state.second
           ) {
+            const value = parseInt(this.state.value);
             this.setState({
-              result: "정답입니다!",
+              result: value + " 정답입니다!",
               first: Math.ceil(Math.random() * 9),
               second: Math.ceil(Math.random() * 9),
               value: "",
@@ -78,7 +79,20 @@
       //   <form>에 onSubmit()이 없거나 <input>에 value 또는 onChange()가 없다면 잘 동작하지 않을 것이다.
     </script>
     <script type="text/babel">
-      ReactDOM.render(<GuGuDan />, document.querySelector("#root"));
+      ReactDOM.render(
+        <div>
+          <br />
+          <GuGuDan />
+          <hr />
+          <br />
+          <GuGuDan />
+          <hr />
+          <br />
+          <GuGuDan />
+          <hr />
+        </div>,
+        document.querySelector("#root")
+      );
     </script>
   </body>
 </html>
