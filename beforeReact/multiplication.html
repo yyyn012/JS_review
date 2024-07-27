@@ -20,18 +20,16 @@
     <div id="root"></div>
     <script type="text/babel">
       class GuGuDan extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = {
-            //유동적으로 바뀌어야 하는 것들은 state로 만들기 적합하다.
-            first: Math.ceil(Math.random() * 9),
-            second: Math.ceil(Math.random() * 9),
-            value: "",
-            result: "",
-          };
-        }
+        state = {
+          //contructor를 빼도 동작한다. 실무에서는 이 방법을 더 많이 쓸 때도 있다.
+          first: Math.ceil(Math.random() * 9),
+          second: Math.ceil(Math.random() * 9),
+          value: "",
+          result: "",
+        };
 
         onSubmit = (e) => {
+          //화살표 함수가 아닌 function을 이용할 경우 this가 달라져 버리기 때문에 웬만해서는 그냥 화살표 함수를 쓰는 게 좋다.
           e.preventDefault();
           if (
             parseInt(this.state.value) ===
