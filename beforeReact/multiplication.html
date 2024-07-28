@@ -54,8 +54,10 @@
           this.setState({ value: e.target.value });
         };
 
-        input;
-        //이런 식으로 함수에 내용을 넣지 않고 그냥 이름만 지정해도 포커스가 잘 작동한다.
+        onRefInput = (c) => {
+          this.input = c;
+        };
+        //랜더가 너무 자주 실행되어 렌더링이 느려질 것 같다면 이렇게 코드를 따로 빼는 게 더 좋은 방법일 수 있다.
 
         render() {
           return (
@@ -65,11 +67,7 @@
               </div>
               <form onSubmit={this.onSubmit}>
                 <input
-                  ref={(c) => {
-                    this.input = c;
-                  }}
-                  // input을 클릭했을 때 포커스 효과를 적용하고 싶을 때 사용하는 코드이다.
-                  //this.input에서 input은 임의로 정한 함수 이름이다.
+                  ref={this.onRefInput}
                   type="number"
                   value={this.state.value}
                   onChange={this.onChange}
