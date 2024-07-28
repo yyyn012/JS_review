@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구구단</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      //   const GuGuDan = () => {
+      //     this.state = {
+      //       value: "",
+      //       result: "",
+      //       first: 0,
+      //       second: 0,
+      //     };
+
+      //     return <div>hello</div>;
+      //   };
+
+      // 위처럼 클래스를 이용해도 좋지만 리액트는 아래의 예시처럼 Hooks를 더 권장하긴 한다.
+
+      const GuGuDan = () => {
+        const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+        const [second, setSecond] = React.useState(
+          Math.ceil(Math.random() * 9)
+        );
+        const [value, setValue] = React.useState("");
+      };
+    </script>
+  </body>
+</html>
