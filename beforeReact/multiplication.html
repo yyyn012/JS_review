@@ -35,13 +35,13 @@
             parseInt(this.state.value) ===
             this.state.first * this.state.second
           ) {
-            const value = parseInt(this.state.value);
             this.setState({
-              result: value + " 정답입니다!",
+              result: this.state.value + " 정답입니다!",
               first: Math.ceil(Math.random() * 9),
               second: Math.ceil(Math.random() * 9),
               value: "",
             });
+            this.input.focus();
           } else {
             this.setState({
               result: "틀렸습니다!",
@@ -54,6 +54,9 @@
           this.setState({ value: e.target.value });
         };
 
+        input;
+        //이런 식으로 함수에 내용을 넣지 않고 그냥 이름만 지정해도 포커스가 잘 작동한다.
+
         render() {
           return (
             <div>
@@ -62,6 +65,11 @@
               </div>
               <form onSubmit={this.onSubmit}>
                 <input
+                  ref={(c) => {
+                    this.input = c;
+                  }}
+                  // input을 클릭했을 때 포커스 효과를 적용하고 싶을 때 사용하는 코드이다.
+                  //this.input에서 input은 임의로 정한 함수 이름이다.
                   type="number"
                   value={this.state.value}
                   onChange={this.onChange}
