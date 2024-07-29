@@ -17,18 +17,7 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      //   const GuGuDan = () => {
-      //     this.state = {
-      //       value: "",
-      //       result: "",
-      //       first: 0,
-      //       second: 0,
-      //     };
-
-      //     return <div>hello</div>;
-      //   };
-
-      // 위처럼 클래스를 이용해도 좋지만 리액트는 아래의 예시처럼 Hooks를 더 권장하긴 한다.
+      //React Hooks
 
       const GuGuDan = () => {
         const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
@@ -36,7 +25,53 @@
           Math.ceil(Math.random() * 9)
         );
         const [value, setValue] = React.useState("");
+        const [result, setResult] = React.useState("");
+        const onRefInput = React.useRef();
+
+        // useRef는 리액트 훅의 한 종류로, Ref는 reference(참조)의 줄임말이다.
+
+        // 특정한 DOM요소에 접근이 가능하면, 불필요한 재렌더링을 하지 않는다는 장점이 있다.(주로 input에 잘 쓰이는 편이다.)
+
+        // current라는 키 값을 지닌 프로퍼티가 생성되고, 이 current를 통해 값을 변경한다. (이때 React컴포넌트는 재렌더링 되지 않는다.)
+
+        const onChangeInput = (e) => {
+          setValue(e.target.value);
+        };
+
+        const onSubmit = (e) => {
+          e.preventDefault();
+          if (
+            parseInt(this.state.value) ===
+            this.state.first * this.state.second
+          ) {
+            setResult("정답" + value);
+            setFirst(Math.ceil(Math.random() * 9));
+            setSecond(Math.ceil(Math.random() * 9));
+            setValue("");
+            onRefInput.current.focus();
+          } else {
+            setResult("땡");
+            setValue("");
+            onRefInput.current.focus();
+          }
+        };
+
+        return (
+          <div>
+            <div>
+              {first} 곱하기 {second}는?
+            </div>
+            <form onSubmit={onSubmit}>
+              <input ref={onRefInput} onChange={onChangeInput} value={value} />
+              <button>입력!</button>
+            </form>
+            <div id="result">{result}</div>
+          </div>
+        );
       };
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(<GuGuDan />, document.querySelector("#root"));
     </script>
   </body>
 </html>
