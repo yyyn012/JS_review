@@ -28,12 +28,6 @@
         const [result, setResult] = React.useState("");
         const onRefInput = React.useRef();
 
-        // useRef는 리액트 훅의 한 종류로, Ref는 reference(참조)의 줄임말이다.
-
-        // 특정한 DOM요소에 접근이 가능하면, 불필요한 재렌더링을 하지 않는다는 장점이 있다.(주로 input에 잘 쓰이는 편이다.)
-
-        // current라는 키 값을 지닌 프로퍼티가 생성되고, 이 current를 통해 값을 변경한다. (이때 React컴포넌트는 재렌더링 되지 않는다.)
-
         const onSubmit = (e) => {
           e.preventDefault();
           if (parseInt(value) === first * second) {
@@ -67,10 +61,6 @@
         );
       };
     </script>
-    <!-- 클래스의 경우 state가 바뀔 때 render 함수 부분만 재랜더링되지만 Hooks의 경우 함수가 전체 재랜더링되기 때문에 속도가 조금 더 늦을 수 있다. -->
-    <!-- 대신 클래스보다 Hooks가 코드를 짧게 쓸 수 있다. -->
-
-    <!-- 리액트에서 못쓰는 속성에는 class와 for이 있다. 각각 class는 className, for은 htmlFor로 표기해야한다. -->
 
     <script type="text/babel">
       ReactDOM.render(<GuGuDan />, document.querySelector("#root"));
