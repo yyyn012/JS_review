@@ -3,11 +3,11 @@ const path = require("path");
 module.exports = {
   mode: "development",
   devtool: "eval",
-  reslove: {
+  resolve: {
     extensions: [".jsx", ".js"],
   },
   entry: {
-    app: "./client",
+    app: ["./client"],
   },
   module: {
     rules: [
@@ -21,7 +21,7 @@ module.exports = {
     ],
   },
   output: {
-    fliename: "app.js",
     path: path.join(__dirname, "dist"),
+    filename: "app.js",
   },
 };
