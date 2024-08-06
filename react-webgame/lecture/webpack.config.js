@@ -49,7 +49,7 @@ module.exports = {
   },
   //devServer 설정
   devServer: {
-    publicPath: "/dist/",
+    port: 9000,
     hot: true,
   },
 };
