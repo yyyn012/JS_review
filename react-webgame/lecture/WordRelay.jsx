@@ -32,7 +32,15 @@ const WordRelay = () => {
     <div>
       <div>{word}</div>
       <form onSubmit={onSubmit}>
-        <input ref={inputRef} value={value} onChange={onChange} />
+        <label id="label" htmlFor="wordInput">
+          글자를 입력해주세요.
+        </label>
+        <input
+          className="wordInput"
+          ref={inputRef}
+          value={value}
+          onChange={onChange}
+        />
         <button>입력!</button>
       </form>
       <div>{result}</div>
