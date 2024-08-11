@@ -12,14 +12,13 @@ const WordRelay = () => {
 
     if (word[word.length - 1] === value[0]) {
       setResult("ok");
+      e.target.children.word = "";
       setWord(value);
-      value("");
-
       inputRef.current.focus();
       //hooks에서는 Ref에 current를 항상 붙여야 한다.
     } else {
       setResult("game over");
-      setValue("");
+      e.target.children.word = "";
       inputRef.current.focus();
     }
   };
@@ -32,15 +31,7 @@ const WordRelay = () => {
     <div>
       <div>{word}</div>
       <form onSubmit={onSubmit}>
-        <label id="label" htmlFor="wordInput">
-          글자를 입력해주세요.
-        </label>
-        <input
-          className="wordInput"
-          ref={inputRef}
-          value={value}
-          onChange={onChange}
-        />
+        <input id="word" ref={inputRef} onChange={onChange} />
         <button>입력!</button>
       </form>
       <div>{result}</div>
@@ -48,6 +39,19 @@ const WordRelay = () => {
   );
 };
 
-module.exports = WordRelay;
+// Uncontrolled input과 controlled input을 써야하는 경우는 각각 간단한 동작을 구현하는 앱을 쓰는 경우와 복잡한 앱을 쓰는 경우로 나뉘어진다.
 
-// 정상적으로 작동되었을 때 콘솔에 뜨는 [HMR]는 HotModule-Reload, [WDS]는 Webpack-Dev-Server이다.
+// 보통 on Submit에서만 특정 동작을 하는 경우 Uncontrolled input을, 그 외에 다른 기능에도 쓰이는 경우에는 Controlled input을 쓴다.
+
+// 위 예시의 경우 WordRelay() 안의 Form태그에서만 onSubmit이 쓰이고 있으므로 해당 input은 Uncontrolled input으로 만들기 적합하다고 볼 수 있다.
+
+// value={value}
+// onChange={onChange}
+
+// input안의 위 코드 두 줄을 지우고 다음과 같이 id를 추가해준다.
+
+// id="word"
+
+//onSubmit()의 setValue('')을 지우고 위와 같이 e.target.children.word="";를 추가한다.
+
+module.exports = WordRelay;
