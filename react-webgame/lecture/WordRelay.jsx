@@ -10,28 +10,26 @@ const WordRelay = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (word[word.length - 1] === value[0]) {
+    console.log(e.target);
+
+    if (word[word.length - 1] === e.target.word.value[0]) {
       setResult("ok");
-      e.target.children.word = "";
+      e.target.children.word.value = "";
       setWord(value);
       inputRef.current.focus();
       //hooks에서는 Ref에 current를 항상 붙여야 한다.
     } else {
       setResult("game over");
-      e.target.children.word = "";
+      e.target.children.word.value = "";
       inputRef.current.focus();
     }
-  };
-
-  const onChange = (e) => {
-    setResult(e.target.value);
   };
 
   return (
     <div>
       <div>{word}</div>
       <form onSubmit={onSubmit}>
-        <input id="word" ref={inputRef} onChange={onChange} />
+        <input defaultValue="끝말잇기" id="word" ref={inputRef} />
         <button>입력!</button>
       </form>
       <div>{result}</div>
@@ -53,5 +51,7 @@ const WordRelay = () => {
 // id="word"
 
 //onSubmit()의 setValue('')을 지우고 위와 같이 e.target.children.word="";를 추가한다.
+
+// Uncontrolled input에서 value를 추가하면 자칫 Controlled input으로 간주될 수 있으니 defaultValue를 사용한다.
 
 module.exports = WordRelay;
