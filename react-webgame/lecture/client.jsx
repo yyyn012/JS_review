@@ -1,15 +1,6 @@
-// import React from "react";
+const React = require("react");
+const ReactDOM = require("react-dom");
 
-// const WordRelay = require("./WordRelay");
+const WordRelay = require("./WordRelay");
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(
-//   <React.StrictMode>
-//     <WordRelay />
-//   </React.StrictMode>
-// );
-
-import { createRoot } from "react-dom/client";
-const container = document.getElementById("app");
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
-root.render(<App tab="WordRelay" />);
+ReactDOM.createRoot(document.querySelector("#root")).render(<WordRelay />);
