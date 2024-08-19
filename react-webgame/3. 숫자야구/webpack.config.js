@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.[jt]sx?$/,
         loader: "babel-loader",
         options: {
           presets: [
@@ -28,7 +28,10 @@ module.exports = {
             ],
             "@babel/preset-react",
           ],
-          plugins: ["react/-refresh/babel"],
+          plugins: [
+            "@babel/plugin-transform-class-properties",
+            "@babel/plugin-transform-private-methods",
+          ],
         },
       },
     ],
