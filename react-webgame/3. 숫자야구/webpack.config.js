@@ -1,5 +1,6 @@
 const path = require("path");
 const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
@@ -8,7 +9,7 @@ module.exports = {
     extensions: [".js", ".jsx"],
   },
   entry: {
-    app: "./client",
+    app: ["./client"],
   },
   module: {
     rules: [
@@ -37,8 +38,10 @@ module.exports = {
     ],
   },
 
-  plugins: [new RefreshWebpackPlugin()],
-
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new RefreshWebpackPlugin(),
+  ],
   output: {
     path: path.join(__dirname, "dist"),
     filename: "app.js",
@@ -47,6 +50,6 @@ module.exports = {
   devServer: {
     devMiddleware: { publicPath: "/dist" },
     static: { directory: path.resolve(__dirname) },
-    hot: true,
+    //hot: true,
   },
 };
