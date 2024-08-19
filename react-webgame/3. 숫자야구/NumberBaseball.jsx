@@ -9,7 +9,7 @@ class NumberBaseball extends Component {
     result: "",
     value: "",
     answer: getNumbers(),
-    tries: "",
+    tries: [],
   };
 
   onSubmit = () => {};
@@ -25,6 +25,7 @@ class NumberBaseball extends Component {
             maxLength={4}
             value={this.state.value}
             onChange={this.onChange}
+            //value와 onChange 둘 다 쓰고 싶지 않다면 이 둘 대신에 defaultValue={this.state.value}를 쓰면 된다.
           />
         </form>
         <div>try : {this.state.tries.length}</div>

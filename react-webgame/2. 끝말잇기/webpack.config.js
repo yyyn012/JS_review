@@ -32,7 +32,8 @@ module.exports = {
             "@babel/preset-react",
           ],
           plugins: [
-            "react-refresh/babel",
+            "@babel/plugin-transform-class-properties",
+            //"react-refresh/babel",
             //babel이 최신 문법을 적용할 뿐만 아니라 핫 로더 기능까지 추가해준다.
           ],
         },
@@ -40,7 +41,10 @@ module.exports = {
     ],
   },
 
-  plugins: [new RefreshWebpackPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new RefreshWebpackPlugin(),
+  ],
 
   output: {
     path: path.join(__dirname, "dist"),

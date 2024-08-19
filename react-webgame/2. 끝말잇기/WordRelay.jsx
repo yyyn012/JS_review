@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const WordRelay = () => {
   const [word, setWord] = useState("끝말잇기");
