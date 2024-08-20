@@ -30,9 +30,23 @@ class NumberBaseball extends Component {
         </form>
         <div>try : {this.state.tries.length}</div>
         <ul>
-          {["likes", "likes", "likes", "likes", "likes"].map(() => {
-            return <li>likes</li>;
+          {[
+            ["apple", "good"],
+            ["banana", "sweet"],
+            ["grape", "sour"],
+            // 이 배열 자체가 map()에 전달한 v라는 인자가 된다.
+          ].map((v) => {
+            return (
+              <li>
+                <b>
+                  {v[0]} - {v[1]}
+                  {/* v에서 첫번째 인자와 두번째 인자를 꺼내온다. */}
+                </b>
+              </li>
+            );
           })}
+
+          {/* 리액트에서 복잡한 반복문 쓰는 법 - 반복되는 부분을 위처럼 2차원 배열로 만들어 map함수 인자로 전달하면 된다. */}
         </ul>
       </div>
     );
