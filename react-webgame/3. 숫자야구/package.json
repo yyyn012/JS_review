@@ -1,9 +1,10 @@
 {
   "name": "numberbaseball",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
-    "dev": "webpack server --env development"
+    "dev": "webpack server --env development",
+    "start": "node ./webpack.config.js"
   },
   "author": "yyyn012",
   "license": "MIT",
