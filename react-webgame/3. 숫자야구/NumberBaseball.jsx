@@ -17,7 +17,7 @@ class NumberBaseball extends Component {
 
   onChange = () => {};
 
-  fruit = [
+  fruits = [
     { fruit: "apple", taste: "good" },
     { fruit: "banana", taste: "sweet" },
     { fruit: "grape", taste: "my favorite" },
@@ -37,9 +37,10 @@ class NumberBaseball extends Component {
         </form>
         <div>try : {this.state.tries.length}</div>
         <ul>
-          {this.fruit.map((v, i) => (
-            <Try />
-          ))}
+          {this.fruits.map((v, i) => {
+            return <Try value={v} index={i} />;
+            // 다음과 같이 컴포넌트를 분리했을 때 props를 이용하면 쉽게 인자 전달을 할 수 있다.
+          })}
         </ul>
       </div>
     );
