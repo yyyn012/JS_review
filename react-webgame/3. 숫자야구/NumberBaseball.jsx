@@ -13,9 +13,16 @@ class NumberBaseball extends Component {
     tries: [],
   };
 
-  onSubmit = () => {};
+  onSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.value);
+  };
 
-  onChange = () => {};
+  onChange = (e) => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
 
   fruits = [
     { fruit: "apple", taste: "good" },
@@ -38,7 +45,7 @@ class NumberBaseball extends Component {
         <div>try : {this.state.tries.length}</div>
         <ul>
           {this.fruits.map((v, i) => {
-            return <Try value={v} index={i} />;
+            return <Try key={v.fruit + v.taste} value={v} index={i} />;
             // 다음과 같이 컴포넌트를 분리했을 때 props를 이용하면 쉽게 인자 전달을 할 수 있다.
           })}
         </ul>
