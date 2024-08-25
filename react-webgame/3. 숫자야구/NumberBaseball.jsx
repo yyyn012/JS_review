@@ -3,7 +3,6 @@ import Try from "./Try";
 
 function getNumbers() {
   // 숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
-  // this를 쓰지 않는 경우 이렇게 전역 함수로 만들 수 있다.(함수의 사용범위가 좀 더 넓어져서 좋음)
   const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const array = [];
   for (let i = 0; i < 4; i += 1) {
@@ -26,10 +25,13 @@ class NumberBaseball extends Component {
     // 구조분해 문법으로 코드를 hooks와 비슷하게 정리할 수 있다.
     e.preventDefault();
     if (value === answer.join("")) {
-      this.setState({
-        result: "홈런!",
-        tries: [...tries, { try: value, result: "홈런!" }],
+      this.setState((prevState) => {
+        return {
+          result: "홈런!",
+          tries: [...prevState.tries, { try: value, result: "홈런!" }],
+        };
       });
+      // state를 연달아 쓸 경우 위와 같이 예전 값을 prevState(함수형 setState)로 전달하는 것이 좋다.
       alert("게임을 다시 시작합니다.");
       this.setState({
         value: "",
@@ -62,15 +64,17 @@ class NumberBaseball extends Component {
             ball += 1;
           }
         }
-        this.setState({
-          tries: [
-            ...tries,
-            {
-              try: value,
-              result: `${strike}, 스트라이크, ${ball} 볼`,
-            },
-          ],
-          value: "",
+        this.setState((prevState) => {
+          return {
+            tries: [
+              ...prevState.tries,
+              {
+                try: value,
+                result: `${strike}, 스트라이크, ${ball} 볼`,
+              },
+            ],
+            value: "",
+          };
         });
       }
     }
