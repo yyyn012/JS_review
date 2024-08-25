@@ -3,6 +3,7 @@ import Try from "./Try";
 
 function getNumbers() {
   // 숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
+  // this를 쓰지 않는 경우 이렇게 전역 함수로 만들 수 있다.(함수의 사용범위가 좀 더 넓어져서 좋음)
   const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const array = [];
   for (let i = 0; i < 4; i += 1) {
@@ -17,19 +18,17 @@ class NumberBaseball extends Component {
     result: "",
     value: "",
     answer: getNumbers(),
-    tries: [], // 배열에 값을 넣을 때 push()를 자주 쓰는데 여기서는 push()를 쓸 수 없음
-    // 리액트에서는 기존 배열을 복사해서 새로운 배열을 만든 후 써야 함.(리액트가 무엇이 바뀌었는지 감지하지 못하기 때문)
+    tries: [],
   };
 
   onSubmit = (e) => {
+    const { value, tries, answer } = this.state;
+    // 구조분해 문법으로 코드를 hooks와 비슷하게 정리할 수 있다.
     e.preventDefault();
-    if (this.state.value === this.state.answer.join("")) {
+    if (value === answer.join("")) {
       this.setState({
         result: "홈런!",
-        tries: [
-          ...this.state.tries, // 예전 배열 복사
-          { try: this.state.value, result: "홈런!" }, // 복사된 배열에 새로운 값 넣어주기
-        ],
+        tries: [...tries, { try: value, result: "홈런!" }],
       });
       alert("게임을 다시 시작합니다.");
       this.setState({
@@ -39,13 +38,13 @@ class NumberBaseball extends Component {
       });
     } else {
       // 답을 틀렸을 경우
-      const answerArray = this.state.value.split("").map((v) => parseInt(v));
+      const answerArray = value.split("").map((v) => parseInt(v));
       let strike = 0;
       let ball = 0;
-      if (this.state.tries.length >= 9) {
+      if (tries.length >= 9) {
         // 10번 이상 틀렸을 때 답을 알려준 후 게임 초기화
         this.setState({
-          result: `실패!(실패 횟수 10번 초과) 답은 ${this.state.answer.join(
+          result: `실패!(실패 횟수 10번 초과) 답은 ${answer.join(
             ","
           )}였습니다!`,
         });
@@ -57,17 +56,17 @@ class NumberBaseball extends Component {
         });
       } else {
         for (let i = 0; i < 4; i += 1) {
-          if (answerArray[i] === this.state.answer[i]) {
+          if (answerArray[i] === answer[i]) {
             strike += 1;
-          } else if (this.state.answer.includes(answerArray[i])) {
+          } else if (answer.includes(answerArray[i])) {
             ball += 1;
           }
         }
         this.setState({
           tries: [
-            ...this.state.tries,
+            ...tries,
             {
-              try: this.state.value,
+              try: value,
               result: `${strike}, 스트라이크, ${ball} 볼`,
             },
           ],
@@ -85,19 +84,16 @@ class NumberBaseball extends Component {
   };
 
   render() {
+    const { result, value, tries } = this.state;
     return (
       <div>
-        <h1>{this.state.result}</h1>
+        <h1>{result}</h1>
         <form onSubmit={this.onSubmit}>
-          <input
-            maxLength={4}
-            value={this.state.value}
-            onChange={this.onChange}
-          />
+          <input maxLength={4} value={value} onChange={this.onChange} />
         </form>
-        <div>try : {this.state.tries.length}</div>
+        <div>try : {tries.length}</div>
         <ul>
-          {this.state.tries.map((v, i) => {
+          {tries.map((v, i) => {
             return <Try key={`${i + 1}차 시도 : `} tryInfo={v} />;
           })}
         </ul>
