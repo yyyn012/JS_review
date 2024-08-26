@@ -16,14 +16,6 @@ const NumberBaseball = () => {
   const [result, setResult] = useState("");
   const [value, setValue] = useState("");
   const [answer, setAnswer] = useState(getNumbers);
-  // getNumbers()로 값을 넣을 경우 겉으로 볼 때 오류는 없지만 다음과 같은 문제가 생긴다.
-  // useState는 getNumbers()의 첫번째 값을 answer에게 넘겨준다.
-  // 이후 getNumbers()는 answer에 첫번째 값이 넘어가도 리렌더링이 될 때마다 새로운 값을 만들어낸다.
-  // 다행히 useState는 getNumbers()에서 만들어지는 첫번째 이후의 값을 반복해서 넘겨주진 않는다.
-  // 따라서 오류가 뜨진 않지만 getNumbers()는 넘겨지지 않는 값을 만들어내는 쓸데없는 리렌더링을 반복하게 된다.
-
-  //이와 같이 함수가 useState에 들어가는 경우는 lazy init이라고 한다.
-  //즉, 해당 함수가 호출되서 리턴 값을 돌려줄 때까지 리액트가 기다려 주는 것을 말한다.
   const [tries, setTries] = useState([]);
 
   const onSubmit = (e) => {
