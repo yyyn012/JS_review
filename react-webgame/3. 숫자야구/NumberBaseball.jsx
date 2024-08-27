@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Try from "./Try";
 
 function getNumbers() {
@@ -17,6 +17,7 @@ const NumberBaseball = () => {
   const [value, setValue] = useState("");
   const [answer, setAnswer] = useState(getNumbers);
   const [tries, setTries] = useState([]);
+  const inputRef = useRef(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +31,8 @@ const NumberBaseball = () => {
 
       setValue("");
       setAnswer(getNumbers());
-      //여기서는 함수를 호출해서 써야 하는 자리이기 때문에 getNumbers()를 써야 한다. (위의 useState 경우처럼 ()를 없애면 안 됨.)
       setTries([]);
+      inputRef.current.focus();
     } else {
       // 답을 틀렸을 경우
       const answerArray = value.split("").map((v) => parseInt(v));
@@ -39,14 +40,14 @@ const NumberBaseball = () => {
       let ball = 0;
       if (tries.length >= 9) {
         // 10번 이상 틀렸을 때 답을 알려준 후 게임 초기화
-        setResult(
-          `실패!(실패 횟수 10번 초과) 답은 ${answer.join(",")}였습니다!`
-        );
+        setResult(`실패 횟수 10번 초과! 답 : ${answer.join(",")}`);
+
         alert("게임을 다시 시작합니다.");
 
         setValue("");
         setAnswer(getNumbers());
         setTries([]);
+        inputRef.current.focus();
       } else {
         for (let i = 0; i < 4; i += 1) {
           if (answerArray[i] === answer[i]) {
@@ -76,7 +77,7 @@ const NumberBaseball = () => {
     <div>
       <h1>{result}</h1>
       <form onSubmit={onSubmit}>
-        <input maxLength={4} value={value} onChange={onChange} />
+        <input ref={inputRef} maxLength={4} value={value} onChange={onChange} />
       </form>
       <div>try : {tries.length}</div>
       <ul>
