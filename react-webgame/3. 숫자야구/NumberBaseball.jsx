@@ -22,6 +22,7 @@ const NumberBaseball = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (value === answer.join("")) {
+      // 답을 한번에 맞췄을 경우(입력한 value와 "answer"가 같을 때)
       setResult("홈런!");
       setTries((prevTries) => {
         return [...prevTries, { try: value, result: "홈런!" }];
@@ -29,17 +30,19 @@ const NumberBaseball = () => {
 
       alert("게임을 다시 시작합니다.");
 
+      // 게임 초기화
       setValue("");
       setAnswer(getNumbers());
       setTries([]);
       inputRef.current.focus();
     } else {
-      // 답을 틀렸을 경우
+      // 한번이라도 답을 틀렸을 경우 answerArray와 strike, ball 생성
       const answerArray = value.split("").map((v) => parseInt(v));
       let strike = 0;
       let ball = 0;
+
+      // 10번을 모두 틀렸을 때 답을 알려준 후 게임 초기화
       if (tries.length >= 9) {
-        // 10번 이상 틀렸을 때 답을 알려준 후 게임 초기화
         setResult(`실패 횟수 10번 초과! 답 : ${answer.join(",")}`);
 
         alert("게임을 다시 시작합니다.");
@@ -49,10 +52,13 @@ const NumberBaseball = () => {
         setTries([]);
         inputRef.current.focus();
       } else {
+        // 10번 이하로 틀렸을 경우
         for (let i = 0; i < 4; i += 1) {
           if (answerArray[i] === answer[i]) {
+            //answerArray 안의 객체와 answer의 객체가 인덱스번호까지 다 일치할 때 strike 누적
             strike += 1;
           } else if (answer.includes(answerArray[i])) {
+            //answerArray와 answer 안의 객체 중 공통된 객체가 존재할 경우 ball 누적
             ball += 1;
           }
         }
