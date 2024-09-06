@@ -22,7 +22,7 @@ module.exports = {
               "@babel/preset-env",
               {
                 targets: {
-                  browsers: ["> 1% in KR"],
+                  browsers: ["> 1% in KR"], //browserslist
                 },
                 debug: true,
               },
@@ -32,6 +32,7 @@ module.exports = {
           plugins: [
             "@babel/plugin-transform-class-properties",
             "@babel/plugin-transform-private-methods",
+            "react-refresh/babel",
           ],
         },
       },
@@ -48,9 +49,9 @@ module.exports = {
     publicPath: "/dist/",
   },
   devServer: {
-    devMiddleware: { publicPath: "/dist" },
-    static: {
-      directory: path.resolve(__dirname),
-    },
+    devMiddleware: { publicPath: "/dist/" },
+    static: { directory: path.resolve(__dirname) },
+    hot: true,
+    liveReload: false,
   },
 };

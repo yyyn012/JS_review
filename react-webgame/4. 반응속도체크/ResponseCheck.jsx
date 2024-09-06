@@ -4,7 +4,7 @@ class ResponseCheck extends Component {
   //게임 시작 전 첫 화면
   state = {
     state: "waiting", //색깔 담당 state
-    message: "클릭해서 시작하세요.", //메시지 담당 state
+    message: "클릭해서 시작하세요!", //메시지 담당 state
     result: [],
   };
 
@@ -19,14 +19,14 @@ class ResponseCheck extends Component {
       console.log(state);
       this.setState({
         state: "ready",
-        message: "초록색이 되면 클릭하세요",
+        message: "초록색이 되면 클릭하세요!",
       });
 
       this.timeout = setTimeout(() => {
         console.log(state);
         this.setState({
           state: "now",
-          message: "지금 클릭",
+          message: "지금 클릭!",
         });
 
         this.startTime = new Date();
