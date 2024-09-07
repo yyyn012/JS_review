@@ -87,9 +87,20 @@ const NumberBaseball = () => {
       </form>
       <div>try : {tries.length}</div>
       <ul>
-        {tries.map((v, i) => {
+        {/* 아래와 같이 즉시 실행 함수(선언되자마자 바로 실행되는 함수) 안에서는 Hooks임에도 for을 사용할 수 있음 */}
+        {(() => {
+          const array = [];
+          for (let i = 0; i < tries.length; i++) {
+            array.push(<Try key={`${i + 1}차 시도 : `} tryInfo={v} />);
+          }
+          return array;
+        })()}
+        {/* 하지만 위와 같은 즉시실행함수 안에 for문을 넣으면 가독성이 떨어진다는 단점이 있어 함수를 그냥 따로 빼는 방식이나 자식 컴포넌트로 만드는 방법이 더 나을 수 있다. */}
+        {/* 사실 가장 좋은 방법은 자식 컴포넌트로 만드는 방법이라고 한다. */}
+
+        {/* {tries.map((v, i) => {
           return <Try key={`${i + 1}차 시도 : `} tryInfo={v} />;
-        })}
+        })} */}
       </ul>
     </div>
   );
